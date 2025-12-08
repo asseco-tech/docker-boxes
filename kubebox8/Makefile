@@ -6,7 +6,7 @@ RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 IMAGE_LATEST_TAG= h${KUBE_VERSION}-v${RELEASE_VERSION}
 IMAGE_TAG = h${KUBE_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
-IMAGE_DESC = A comprehensive development container with essential Kubernetes and DevOps tools. The following tools are included: helm, kustomize, yq, jq, wget, bash and some others.
+IMAGE_DESC = A container focused on Kubernetes deployment and Helm operations. The following tools are included: helm, kustomize, yq, jq, wget, bash and some others.
 
 # image labels
 MAINTAINER = Asseco Poland S.A
