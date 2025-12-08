@@ -9,7 +9,7 @@ IMAGE_LATEST_TAG= h${HELM_VERSION}-v${RELEASE_VERSION}
 IMAGE_TAG = h${HELM_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
 IMAGE_DESC = \
   A comprehensive development container with essential Kubernetes and DevOps tools. \
-  The following tools are included: helm, kustomize, yq, jq, wget, bash and some others. \
+  The following tools are included: helm, kustomize, yq, jq, curl, bash and some others. \
   The versions are located within the image environment.
 
 # image labels

@@ -23,7 +23,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - **jq** - JSON processor and query tool
 - **diffutils** - File comparison utilities
 - **rsync** - File synchronization tool
-- **wget** - Web file downloader
+- **curl** - HTTP/S transfer data tool
 - **bash** - Shell environment
 The versions are located within the image environment.
 
@@ -44,7 +44,7 @@ A container focused on Kubernetes deployment and Helm operations.
 - **Kustomize** - Kubernetes configuration management
 - **oc** - the OpenShfit cluster manager CLI
 - **kubectl** - the Kubernetes cluster manager CLI
-- **wget** - Web file downloader
+- **curl** - HTTP/S transfer data tool
 - **bash** - Shell environment
 The versions are located within the image environment.
 

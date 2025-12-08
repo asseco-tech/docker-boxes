@@ -9,7 +9,7 @@ IMAGE_LATEST_TAG= h${KUBE_VERSION}-v${RELEASE_VERSION}
 IMAGE_TAG = h${KUBE_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
 IMAGE_DESC = \
   A container focused on Kubernetes deployment and Helm operations. \
-  The following tools are included: oc, kubectl, helm, kustomize, wget, bash. \
+  The following tools are included: oc, kubectl, helm, kustomize, curl, bash. \
   The versions are located within the image environment.
 
 # image labels

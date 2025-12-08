@@ -23,27 +23,27 @@ ENV KUBE_VERSION="1.32.1"
 # INSTALLATION
 
 WORKDIR /tmp
-RUN dnf install -y wget && \
-    dnf clean all
+RUN dnf update -y \
+    && dnf clean all
 
-RUN wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
-         -O helm-linux-amd64.tar.gz \
+RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+          -o helm-linux-amd64.tar.gz \
     && tar -zxvf helm-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
-RUN  wget -q https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
-           -O kustomize_linux_amd4.tar.gz \
+RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+          -o kustomize_linux_amd4.tar.gz \
     && tar -zxvf kustomize_linux_amd4.tar.gz \
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
 
-RUN wget -q https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-amd64-rhel8.tar.gz \
+RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-amd64-rhel8.tar.gz \
     && tar -zxvf openshift-client-linux-amd64-rhel8.tar.gz \
     && mv oc /usr/local/bin/oc \
     && chmod +x /usr/local/bin/oc
 
-RUN wget -q https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl \
+RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl \
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
