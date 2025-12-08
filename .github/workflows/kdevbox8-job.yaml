@@ -7,6 +7,9 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  # force old Docker v2 Schema 2 manifest
+  DOCKER_BUILDKIT: 1
+  DOCKER_CLI_EXPERIMENTAL: enabled
 
 jobs:
   build:
@@ -38,6 +41,13 @@ jobs:
         BUILD_NUMBER=$(printf "%03d" ${{ github.run_number }})
         echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_ENV
         echo "build-number=${BUILD_NUMBER}" >> $GITHUB_OUTPUT
+
+    - name: Version info
+      run: |
+        docker version
+        echo
+        make --version
+        echo
 
     - name: Build Docker image
       run: |
