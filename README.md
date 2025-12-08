@@ -11,7 +11,7 @@ This repository contains pre-built Docker images optimized for Kubernetes develo
 
 ## 🏗️ Available Images
 
-### DevBox (`asseco-tech/devbox`)
+### K8S DevBox (`asseco-tech/kdevbox8`)
 
 A comprehensive development container with essential Kubernetes and DevOps tools.
 
@@ -33,7 +33,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - DevOps automation
 
 
-### HelmBox (`asseco-tech/helmbox`)
+### K8S HelmBox (`asseco-tech/helmbox8`)
 
 A specialized container focused on Helm operations and Kubernetes package management.
 

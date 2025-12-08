@@ -1,5 +1,5 @@
 # image attributes
-IMAGE_NAME = asseco-tech/devbox
+IMAGE_NAME = asseco-tech/kdevbox8
 DOCKER_REGISTRY ?= ghcr.io
 HELM_VERSION ?= 3.18.6
 BUILD_NUMBER ?= 001
