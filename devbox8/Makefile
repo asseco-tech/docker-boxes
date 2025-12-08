@@ -1,10 +1,4 @@
-# PRODUCT_CODE?=${BT_PRODUCT}
-# PRODUCT_CODE_LC?=${BT_PRODUCT_LOWER}
-# VER_WORDS               := $(subst ., ,$(PRODUCT_VERSION))
-# PRODUCT_VERSION_MAJOR   := $(word 1,$(VER_WORDS))
-
-
-# image attribute
+# image attributes
 IMAGE_NAME = asseco-tech/devbox
 DOCKER_REGISTRY ?= ghcr.io
 HELM_VERSION ?= 3.18.6
@@ -20,13 +14,15 @@ CACHE ?= ''
 CACHE_FLAG = $(if $(CACHE),,--no-cache)
 
 
+# Default target
 all: help
 
-# Default target
+
 help:
 	@echo "Commands list: "
 	@echo ""
-	@echo " build  image build"
+	@echo " build    image build"
+	@echo " push     image push"
 	@echo ""
 	@echo "Available parameters:"
 	@echo " CACHE=1        enable cache (default: disabled)"
@@ -46,10 +42,12 @@ build:
 	  --label "org.opencontainers.image.vendor=${MAINTAINER}" \
 	   $(CACHE_FLAG) .
 
+
 push:
 	@echo "-- docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
 	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
 	docker push ${IMAGE_NAME}:${IMAGE_TAG}
+
 
 test:
 	@echo "HELM_VERSION=${HELM_VERSION}"
