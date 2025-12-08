@@ -13,7 +13,7 @@ env:
 
 jobs:
   devbox8-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: devbox8
