@@ -7,9 +7,9 @@ CACHE=1
 IMAGE_DIRS=(
   'ubi8-test'
   'ubi9-test'
-  'kdevbox8'
-  'kubebox8'
 )
+#  'kdevbox8'
+#  'kubebox8'
 
 for idir in "${IMAGE_DIRS[@]}"; do
   (cd ${idir} \
