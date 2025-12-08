@@ -46,7 +46,7 @@ build:
 push:
 	@echo "-- docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
 	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
-	docker push ${IMAGE_NAME}:${IMAGE_TAG}
+	docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
 
 
 test:
