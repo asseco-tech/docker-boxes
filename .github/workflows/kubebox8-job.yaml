@@ -1,4 +1,4 @@
-name: helmbox8 image job
+name: kubebox8 image job
 
 on:
   push:
@@ -9,12 +9,11 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-
-  helmbox8-build:
+  build:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: helmbox8
+        working-directory: kubebox8
     permissions:
       contents: read
       packages: write

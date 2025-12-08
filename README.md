@@ -27,15 +27,15 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - **bash** - Shell environment
 
 **Use Cases:**
-- Helm chart management
+- Helm chart development and build
 - CI/CD pipelines
 - Configuration processing
 - DevOps automation
 
 
-### K8S HelmBox (`asseco-tech/helmbox8`)
+### K8S KubeBox (`asseco-tech/kubebox8`)
 
-A specialized container focused on Helm operations and Kubernetes package management.
+A container focused on Kubernetes deployment and Helm operations.
 
 **Base Image:** Red Hat UBI8  
 **Included Tools:**
@@ -43,14 +43,14 @@ A specialized container focused on Helm operations and Kubernetes package manage
 - **Kustomize** - Kubernetes configuration management
 - **oc** - the OpenShfit cluster manager CLI
 - **kubectl** - the Kubernetes cluster manager CLI
+- **wget** - Web file downloader
 - **bash** - Shell environment
 
 **Use Cases:**
-- Helm chart development and deployment
 - Kubernetes package management
 - Chart repository operations
+- Helm chart deployment and management
 - Simplified CI/CD for Helm-focused workflows
-- Lightweight container for Helm operations
 
 
 ## 📦 Image Registry

@@ -9,7 +9,7 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  kdevbox8-build:
+  build:
     runs-on: ubuntu-22.04
     defaults:
       run:
@@ -47,5 +47,3 @@ jobs:
       if: github.event_name != 'pull_request'
       run: |
         make push DOCKER_REGISTRY=${{ env.REGISTRY }} BUILD_NUMBER=${{ env.BUILD_NUMBER }}
-
-

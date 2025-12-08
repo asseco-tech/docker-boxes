@@ -1,12 +1,12 @@
 # image attributes
-IMAGE_NAME = asseco-tech/kdevbox8
+IMAGE_NAME = asseco-tech/kubebox8
 DOCKER_REGISTRY ?= ghcr.io
-HELM_VERSION ?= 3.18.6
+KUBE_VERSION ?= 1.32.1
 RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
-IMAGE_LATEST_TAG= h${HELM_VERSION}-v${RELEASE_VERSION}
-IMAGE_TAG = h${HELM_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
-IMAGE_DESC = A comprehensive development container with essential Kubernetes and DevOps tools. The following tools are included: helm, kustomize, yq, jq, wget, bash and some others.
+IMAGE_LATEST_TAG= h${KUBE_VERSION}-v${RELEASE_VERSION}
+IMAGE_TAG = h${KUBE_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
+IMAGE_DESC = A container focused on Kubernetes deployment and Helm operations. The following tools are included: helm, kustomize, yq, jq, wget, bash and some others.
 
 # image labels
 MAINTAINER = Asseco Poland S.A
@@ -31,13 +31,13 @@ help:
 	@echo "Available parameters:"
 	@echo " CACHE=1        enable cache (default: disabled)"
 	@echo " BUILD_NUMBER   build number (unique)"
-	@echo " HELM_VERSION   helm version"
+	@echo " KUBE_VERSION   kubectl version"
 
 
 build:
 	@echo "-- docker build ${IMAGE_NAME}:${IMAGE_TAG}"
 	docker build -t ${IMAGE_NAME}:${IMAGE_TAG} \
-	  --build-arg "HELM_VERSION=${HELM_VERSION}" \
+	  --build-arg "KUBE_VERSION=${KUBE_VERSION}" \
 	  --label "vendor=${MAINTAINER}" \
 	  --label "name=${IMAGE_NAME}" \
 	  --label "summary=${IMAGE_NAME}" \
