@@ -64,6 +64,10 @@ push:
 	docker rmi ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_LATEST_TAG}
 
 
+clean:
+	docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
+	docker rmi ${IMAGE_NAME}:${IMAGE_LATEST_TAG}
+
 
 info:
 	@echo "IMAGE_NAME=${IMAGE_NAME}"
