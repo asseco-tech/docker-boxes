@@ -1,8 +1,8 @@
 FROM docker.io/redhat/ubi8:8.10
 
 # INSTALLATION
-#RUN dnf update && \
-#    dnf clean all
+RUN dnf update && \
+    dnf clean all
 
 # python3.6 libs has Vulnerabilities
 RUN rm -rf /usr/lib/python3.6 \
