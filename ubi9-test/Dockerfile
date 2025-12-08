@@ -1,7 +1,7 @@
 FROM docker.io/redhat/ubi9:9.7
 
 # INSTALLATION
-RUN dnf update && \
+RUN dnf update -y && \
     dnf clean all
 
 # python3.9 libs has Vulnerabilities
