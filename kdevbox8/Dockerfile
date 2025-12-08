@@ -9,7 +9,8 @@ ENV HELM_VERSION=$HELM_VERSION
 
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION="5.5.0"
+ENV KUSTOMIZE_VERSION="5.6.0"
+# version 5.5.0 has Vulnerabilitie: CVE-2025-22871
 
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
@@ -45,6 +46,11 @@ RUN  wget -q https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-
     && mv jq-linux-amd64 /usr/local/bin/jq \
     && chmod a+xr,og-w /usr/local/bin/jq \
     && rm -rf *
+
+RUN rm -rf /usr/lib/python3.6
+# Vulnerabilities:
+#   CVE-2024-3651 /usr/lib/python3.6/site-packages/idna-2.5
+#   CVE-2023-43804 /usr/lib/python3.6/site-packages/urllib3-1.24.2
 
 WORKDIR /home
 
