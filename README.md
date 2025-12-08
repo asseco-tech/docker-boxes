@@ -33,7 +33,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - DevOps automation
 
 
-### K8S HelmBox (`asseco-tech/helmbox8`)
+### K8S KubeBox (`asseco-tech/kubebox8`)
 
 A specialized container focused on Helm operations and Kubernetes package management.
 
@@ -43,6 +43,7 @@ A specialized container focused on Helm operations and Kubernetes package manage
 - **Kustomize** - Kubernetes configuration management
 - **oc** - the OpenShfit cluster manager CLI
 - **kubectl** - the Kubernetes cluster manager CLI
+- **wget** - Web file downloader
 - **bash** - Shell environment
 
 **Use Cases:**

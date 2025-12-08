@@ -1,14 +1,15 @@
 FROM docker.io/redhat/ubi8:8.10
+ARG HELM_VERSION
 
-# Metadata
+# METADATA
+
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
-ARG HELM_VERSION
 ENV HELM_VERSION=$HELM_VERSION
 
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION="5.7.1"
+ENV KUSTOMIZE_VERSION="5.5.0"
 
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
@@ -17,6 +18,8 @@ ENV YQ_VERSION="4.47.2"
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
 ENV JQ_VERSION="1.8.1"
+
+# INSTALLATION
 
 WORKDIR /tmp
 RUN dnf install -y diffutils rsync wget && \

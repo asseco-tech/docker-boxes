@@ -1,22 +1,26 @@
 FROM docker.io/redhat/ubi8:8.10
 
-# Metadata
+ARG KUBE_VERSION
+# METADATA
+
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
-ARG HELM_VERSION
-ENV HELM_VERSION=$HELM_VERSION
+ENV HELM_VERSION=3.18.6
 
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION="5.7.1"
+ENV KUSTOMIZE_VERSION="5.5.0"
 
-# Note: Latest version of yq may be found at
-# https://github.com/mikefarah/yq/releases
-ENV OC_VERSION="4.47.2"
+# Note: Latest version of oc may be found at
+# https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
+ENV OC_VERSION="4.19.21"
 
-# Note: Latest version of yq may be found at
-# https://github.com/mikefarah/yq/releases
-ENV KUBE_VERSION="1.8.1"
+# Note: Latest version of kubectl may be found at
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+ENV KUBE_VERSION="1.32.1"
+
+
+# INSTALLATION
 
 WORKDIR /tmp
 RUN dnf install -y wget && \
@@ -34,6 +38,14 @@ RUN  wget -q https://github.com/kubernetes-sigs/kustomize/releases/download/kust
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
 
+RUN wget -q https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-amd64-rhel8.tar.gz \
+    && tar -zxvf openshift-client-linux-amd64-rhel8.tar.gz \
+    && mv oc /usr/local/bin/oc \
+    && chmod +x /usr/local/bin/oc
+
+RUN wget -q https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl \
+    && mv kubectl /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
 
 WORKDIR /home
 
