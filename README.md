@@ -35,7 +35,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 
 ### K8S KubeBox (`asseco-tech/kubebox8`)
 
-A specialized container focused on Helm operations and Kubernetes package management.
+A specialized container focused on Helm operations and Kubernetes deployment.
 
 **Base Image:** Red Hat UBI8  
 **Included Tools:**
