@@ -47,6 +47,10 @@ RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubec
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
+# python3.6 libs has Vulnerabilities
+RUN rm -rf /usr/lib/python3.6 \
+    && rm -rf /usr/share/python3-wheels
+
 WORKDIR /home
 
 CMD ["bash"]
