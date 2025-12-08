@@ -25,6 +25,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - **rsync** - File synchronization tool
 - **wget** - Web file downloader
 - **bash** - Shell environment
+The versions are located within the image environment.
 
 **Use Cases:**
 - Helm chart development and build
@@ -45,6 +46,7 @@ A container focused on Kubernetes deployment and Helm operations.
 - **kubectl** - the Kubernetes cluster manager CLI
 - **wget** - Web file downloader
 - **bash** - Shell environment
+The versions are located within the image environment.
 
 **Use Cases:**
 - Kubernetes package management

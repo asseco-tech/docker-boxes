@@ -4,9 +4,13 @@ DOCKER_REGISTRY ?= ghcr.io
 KUBE_VERSION ?= 1.32.1
 RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
+BUILD_DATE = $(shell date --iso-8601=seconds)
 IMAGE_LATEST_TAG= h${KUBE_VERSION}-v${RELEASE_VERSION}
 IMAGE_TAG = h${KUBE_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
-IMAGE_DESC = A container focused on Kubernetes deployment and Helm operations. The following tools are included: oc, kubectl, helm, kustomize, wget, bash.
+IMAGE_DESC = \
+  A container focused on Kubernetes deployment and Helm operations. \
+  The following tools are included: oc, kubectl, helm, kustomize, wget, bash. \
+  The versions are located within the image environment.
 
 # image labels
 MAINTAINER = Asseco Poland S.A
@@ -40,13 +44,12 @@ build:
 	  --build-arg "KUBE_VERSION=${KUBE_VERSION}" \
 	  --label "vendor=${MAINTAINER}" \
 	  --label "name=${IMAGE_NAME}" \
-	  --label "summary=${IMAGE_NAME}" \
-	  --label "version=${IMAGE_TAG}" \
 	  --label "org.opencontainers.image.description=${IMAGE_DESC}" \
 	  --label "org.opencontainers.image.source=${GIT_REPOSITORY}" \
 	  --label "org.opencontainers.image.title=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.vendor=${MAINTAINER}" \
 	  --label "org.opencontainers.image.version=${IMAGE_TAG}" \
+	  --label "org.opencontainers.image.created=${BUILD_DATE}" \
 	   $(CACHE_FLAG) .
 	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:${IMAGE_LATEST_TAG}
 
