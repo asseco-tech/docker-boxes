@@ -1,11 +1,11 @@
 FROM docker.io/redhat/ubi8:8.10
-
 ARG KUBE_VERSION
+
 # METADATA
 
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION=3.18.6
+ENV HELM_VERSION="3.18.6"
 
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
@@ -17,14 +17,29 @@ ENV OC_VERSION="4.19.21"
 
 # Note: Latest version of kubectl may be found at
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
-ENV KUBE_VERSION="1.32.1"
+ENV KUBE_VERSION=${KUBE_VERSION}
+
+ARG VENDOR="Asseco Poland S.A."
+ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
+ARG DESC_P1="A container focused on Kubernetes deployment and Helm operations."
+ARG DESC_P2="The following tools are included: kubectl ${KUBE_VERSION}, oc ${OC_VERSION}, helm ${HELM_VERSION}, kustomize ${KUSTOMIZE_VERSION}, curl, bash"
+
+LABEL vendor="${VENDOR}" \
+      org.opencontainers.image.vendor="${VENDOR}" \
+      org.opencontainers.image.source="${SOURCE_URL}" \
+      org.opencontainers.image.description="${DESC_P1} ${DESC_P2}"
 
 
 # INSTALLATION
 
 WORKDIR /tmp
+
+    # update
 RUN dnf update -y \
-    && dnf clean all
+    && dnf clean all \
+    # python3.6 libs has vulnerabilities
+    && rm -rf /usr/lib/python3.6 \
+    && rm -rf /usr/share/python3-wheels
 
 RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
           -o helm-linux-amd64.tar.gz \
@@ -46,10 +61,6 @@ RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_V
 RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl \
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
-
-# python3.6 libs has Vulnerabilities
-RUN rm -rf /usr/lib/python3.6 \
-    && rm -rf /usr/share/python3-wheels
 
 WORKDIR /home
 
