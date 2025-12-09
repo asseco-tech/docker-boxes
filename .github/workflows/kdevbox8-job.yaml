@@ -1,7 +1,7 @@
 name: kdevbox8 image job
 
 on:
-  push:
+  pull_request:
     branches: [ master ]
   workflow_dispatch:
 
