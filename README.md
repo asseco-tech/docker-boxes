@@ -33,6 +33,20 @@ The versions are located within the image environment.
 - Configuration processing
 - DevOps automation
 
+🏷️ **Tagging Strategy:**
+
+Images are tagged using the following format: `h{HELM_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+
+Where:
+- `HELM_VERSION` - Version of Helm included in the image
+- `RELEASE_VERSION` - Release of an image within the same Helm version; 
+    a release change means a minor/patch version change for other tools or for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format)
+
+**Example:** `h3.18.6-v1-b001`
+
+Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
+
 
 ### K8S KubeBox (`asseco-tech/kubebox8`)
 
@@ -54,24 +68,26 @@ The versions are located within the image environment.
 - Helm chart deployment and management
 - Simplified CI/CD for Helm-focused workflows
 
+🏷️ **Tagging Strategy:**
+
+Images are tagged using the following format: `k{KUBE_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+
+Where:
+- `KUBE_VERSION` - Version of kubectl included in the image
+- `RELEASE_VERSION` - Release of an image within the same kubectl version; 
+    a release change means a minor/patch version change for other tools or for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format)
+
+**Example:** `k1.32.1-v1-b001`
+
+Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
+
 
 ## 📦 Image Registry
 
 Browse all available images and tags:
 **[https://github.com/orgs/asseco-tech/packages?repo_name=docker-boxes](https://github.com/orgs/asseco-tech/packages?repo_name=docker-boxes)**
 
-
-## 🏷️ Tagging Strategy
-
-Images are tagged using the following format: `{HELM_VERSION}-{BUILD_NUMBER}`
-
-Where:
-- `HELM_VERSION` - Version of Helm included in the image
-- `BUILD_NUMBER` - Sequential build number (3-digit format)
-
-**Example:** `3.18.6-001`
-
-Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
 ## 🔄 CI/CD
 
@@ -81,13 +97,7 @@ Images are automatically built and pushed using GitHub Actions on:
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-tool`)
-3. Make your changes
-4. Update documentation if needed
-5. Commit your changes (`git commit -m 'Add amazing tool'`)
-6. Push to the branch (`git push origin feature/amazing-tool`)
-7. Open a Pull Request to dev branch
+Please contact the development team.
 
 ## 📝 License
 
