@@ -2,7 +2,7 @@
 
 REGISTRY=${REGISTRY:-artifactory-test.dev-pus.asseco.pl/com-image-snapshot}
 BUILD_NUMBER=${BUILD_NUMBER:-001}
-CACHE=1
+CACHE=${CACHE:-1}
 
 IMAGE_DIRS=(
   'kdevbox8'
