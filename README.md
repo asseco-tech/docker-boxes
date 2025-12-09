@@ -99,15 +99,15 @@ Images are automatically built and pushed using GitHub Actions on:
 
 Please contact the development team.
 
-## 📝 License
-
-This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
-
 ## 🏢 Maintainer
 
 **Asseco Poland S.A.**
 
 For questions, issues, or contributions, please use GitHub Issues or contact the development team.
+
+## 📝 License
+
+This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
 
 ## 🔗 Related Resources
 
