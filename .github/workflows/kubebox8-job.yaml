@@ -1,9 +1,17 @@
-name: kubebox8 image job
+name: kubebox8 image build
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ master, dev, feature/* ]
+  push:
+    branches: [ master, dev ]
   workflow_dispatch:
+    inputs:
+      PUSH_ENABLED:
+        description: 'Enable Docker image push (possible on master branch only)'
+        required: false
+        default: 'true'
+        type: boolean
 
 env:
   REGISTRY: ghcr.io
@@ -28,6 +36,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Show branch info
+      run: |
+        echo "Current branch: ${{ github.ref_name }}"
+        echo "Event: ${{ github.event_name }}"
+        echo "Base ref: ${{ github.base_ref }}"
+
     - name: Log in to Container Registry
       uses: docker/login-action@v3
       with:
@@ -44,16 +58,18 @@ jobs:
 
     - name: Version info
       run: |
-        docker version
-        echo
-        make --version
-        echo
 
     - name: Build Docker image
       run: |
         make build BUILD_NUMBER=${{ env.BUILD_NUMBER }}
 
+    - name: Show Docker Inspect
+      run: |
+        docker version && echo 
+        make --version && echo 
+        make inspect
+
     - name: Push Docker image
-      if: github.event_name != 'pull_request'
+      if: github.ref_name == 'master' && github.event_name == 'workflow_dispatch' && github.event.inputs.PUSH_ENABLED == 'true'
       run: |
         make push DOCKER_REGISTRY=${{ env.REGISTRY }} BUILD_NUMBER=${{ env.BUILD_NUMBER }}
