@@ -2,9 +2,9 @@ name: kdevbox8 image build
 
 on:
   pull_request:
-    branches: [ master, dev, feature/* ]
+    branches: [ dev, feature/* ]
   push:
-    branches: [ master, dev ]
+    branches: [ master, dev, feature/* ]
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
