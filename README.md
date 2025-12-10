@@ -15,7 +15,7 @@ This repository contains pre-built Docker images optimized for Kubernetes develo
 
 A comprehensive development container with essential Kubernetes and DevOps tools.
 
-**Base Image:** Red Hat UBI8  
+**Base Image:** Red Hat UBI 8  
 **Included Tools:**
 - **Helm** - Kubernetes package manager (version determined at build time)
 - **Kustomize** - Kubernetes configuration management
@@ -40,8 +40,9 @@ Images are tagged using the following format: `h{HELM_VERSION}-v{RELEASE_VERSION
 Where:
 - `HELM_VERSION` - Version of Helm included in the image
 - `RELEASE_VERSION` - Release of an image within the same Helm version; 
-    a release change means a minor/patch version change for other tools or for the base image.
-- `BUILD_NUMBER` - Sequential build number (3-digit format)
+    a release change means a minor/patch version change for other tools or change for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format);
+    a build change means correcting the metafiles, descriptions, scripts and so on
 
 **Example:** `h3.18.6-v1-b001`
 
@@ -52,7 +53,7 @@ Tool versions are determined at build time and may vary between tags. Check the 
 
 A container focused on Kubernetes deployment and Helm operations.
 
-**Base Image:** Red Hat UBI8  
+**Base Image:** Red Hat UBI 8  
 **Included Tools:**
 - **Helm** - Kubernetes package manager (version determined at build time)
 - **Kustomize** - Kubernetes configuration management
@@ -76,7 +77,8 @@ Where:
 - `KUBE_VERSION` - Version of kubectl included in the image
 - `RELEASE_VERSION` - Release of an image within the same kubectl version; 
     a release change means a minor/patch version change for other tools or for the base image.
-- `BUILD_NUMBER` - Sequential build number (3-digit format)
+- `BUILD_NUMBER` - Sequential build number (3-digit format);
+    a build change means correcting the metafiles, descriptions, scripts and so on
 
 **Example:** `k1.32.1-v1-b001`
 
