@@ -59,11 +59,12 @@ clean:
 
 
 info:
-	@echo "IMAGE_NAME=${IMAGE_NAME}"
-	@echo "IMAGE_TAG=${IMAGE_TAG}"
-	@echo "IMAGE_LATEST_TAG=${IMAGE_LATEST_TAG}"
-	@echo "HELM_VERSION=${HELM_VERSION}"
-	@echo "CACHE_FLAG=$(CACHE_FLAG)"
+	@echo "IMAGE_NAME: ${IMAGE_NAME}"
+	@echo "IMAGE_TAG: ${IMAGE_TAG}"
+	@echo "IMAGE_LATEST_TAG: ${IMAGE_LATEST_TAG}"
+	@echo "HELM_VERSION: ${HELM_VERSION}"
+	@echo "CACHE_FLAG: $(CACHE_FLAG)"
+	@echo "image_path: ${IMAGE_NAME}:${IMAGE_LATEST_TAG}"
 
 
 inspect:
