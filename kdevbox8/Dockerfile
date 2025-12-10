@@ -2,6 +2,7 @@ FROM docker.io/redhat/ubi8:8.10
 ARG HELM_VERSION
 
 # METADATA
+ARG BASH_VERSION="4.4.x"
 
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
@@ -22,12 +23,13 @@ ENV JQ_VERSION="1.8.1"
 ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
 ARG DESC_P1="A comprehensive development container with essential Kubernetes and DevOps tools."
-ARG DESC_P2="The following tools are included: helm ${HELM_VERSION}, kustomize ${KUSTOMIZE_VERSION}, yq ${YQ_VERSION}, jq ${JQ_VERSION}, curl, bash."
+ARG DESC_P2="The following tools are included: helm ${HELM_VERSION}, kustomize ${KUSTOMIZE_VERSION}, yq ${YQ_VERSION}, jq ${JQ_VERSION}, bash ${BASH_VERSION}, curl."
+ARG DESC_P3="The image is based on Red Hat UBI 8."
 
 LABEL vendor="${VENDOR}" \
       org.opencontainers.image.vendor="${VENDOR}" \
       org.opencontainers.image.source="${SOURCE_URL}" \
-      org.opencontainers.image.description="${DESC_P1} ${DESC_P2}"
+      org.opencontainers.image.description="${DESC_P1} ${DESC_P2} ${DESC_P3}"
 
 
 # INSTALLATION
