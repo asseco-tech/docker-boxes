@@ -21,8 +21,10 @@ help:
 	@echo "Commands list: "
 	@echo ""
 	@echo " build    image build"
-	@echo " push     image push"
-	@echo " info     print some parameters"
+	@echo " clean    clean local builded images"
+	@echo " push     image push to registry"
+	@echo " pull     image pull from registry"
+	@echo " info     print image parameters"
 	@echo " inspect  print image objects info"
 	@echo ""
 	@echo "Available parameters:"
@@ -43,6 +45,11 @@ build:
 	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:${IMAGE_LATEST_TAG}
 
 
+clean:
+	@docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || echo
+	@docker rmi ${IMAGE_NAME}:${IMAGE_LATEST_TAG} || echo
+
+
 push:
 	@echo "-- docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
 	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
@@ -53,9 +60,9 @@ push:
 	docker rmi ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_LATEST_TAG}
 
 
-clean:
-	docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
-	docker rmi ${IMAGE_NAME}:${IMAGE_LATEST_TAG}
+pull:
+	@echo "pull ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_LATEST_TAG}"
+	@docker pull ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_LATEST_TAG}
 
 
 info:
@@ -64,7 +71,9 @@ info:
 	@echo "IMAGE_LATEST_TAG: ${IMAGE_LATEST_TAG}"
 	@echo "HELM_VERSION: ${HELM_VERSION}"
 	@echo "CACHE_FLAG: $(CACHE_FLAG)"
-	@echo "image_path: ${IMAGE_NAME}:${IMAGE_LATEST_TAG}"
+	@echo
+	@echo "LOCAL REPO IMAGES: "
+	@docker images | grep ${IMAGE_NAME} | awk '{print $$1":"$$2}'
 
 
 inspect:
