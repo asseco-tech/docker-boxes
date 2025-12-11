@@ -93,9 +93,15 @@ Browse all available images and tags:
 
 ## 🔄 CI/CD
 
-Images are automatically built and pushed using GitHub Actions on:
-- Push to `main` branch
-- Pull requests
+Images are built and push using GitHub Actions on:
+- Manual trigger on `master` branch 
+- Manual trigger on `hotfix/*` branch 
+
+Images are automatically built (without push) using GitHub Actions on:
+- Push to `master` branch
+- Push to `hotfix/*` branch 
+- Push to `dev` branch
+- Push to `feature/*` branch
 
 ## 🤝 Contributing
 

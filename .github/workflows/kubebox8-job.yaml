@@ -2,13 +2,13 @@ name: kubebox8 image build
 
 on:
   pull_request:
-    branches: [ dev, feature/* ]
+    branches: [ master, hotfix/* ]
   push:
-    branches: [ master, dev, feature/* ]
+    branches: [ master, hotfix/*, feature/*, dev ]
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
-        description: 'Enable Docker image push (possible on master branch only)'
+        description: 'Enable Docker image push (possible on master or hotfix/ branches)'
         required: false
         default: 'true'
         type: boolean
@@ -56,9 +56,6 @@ jobs:
         echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_ENV
         echo "build-number=${BUILD_NUMBER}" >> $GITHUB_OUTPUT
 
-    - name: Version info
-      run: |
-
     - name: Build Docker image
       run: |
         make build BUILD_NUMBER=${{ env.BUILD_NUMBER }}
@@ -70,6 +67,8 @@ jobs:
         make inspect
 
     - name: Push Docker image
-      if: github.ref_name == 'master' && github.event_name == 'workflow_dispatch' && github.event.inputs.PUSH_ENABLED == 'true'
+      if:   (github.ref_name == 'master' || startsWith(github.ref_name, 'hotfix/')) 
+          && github.event_name == 'workflow_dispatch' 
+          && github.event.inputs.PUSH_ENABLED == 'true'
       run: |
         make push DOCKER_REGISTRY=${{ env.REGISTRY }} BUILD_NUMBER=${{ env.BUILD_NUMBER }}
