@@ -36,13 +36,15 @@ LABEL vendor="${VENDOR}" \
 
 WORKDIR /tmp
 
-    # diffutils rsync
+# linux update && install
 RUN dnf update -y \
     && dnf install -y diffutils rsync \
     && dnf clean all \
     # python3.6 libs has vulnerabilities
     && rm -rf /usr/lib/python3.6 \
-    && rm -rf /usr/share/python3-wheels
+    && rm -rf /usr/share/python3-wheels \
+    # dnf uses deleted python libs
+    && rm -f /usr/bin/dnf
 
 RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
          -o helm-linux-amd64.tar.gz \

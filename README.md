@@ -85,21 +85,28 @@ Where:
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
 
-## 📦 Image Registry
+### 📦 Image Registry
 
-Browse all available images and tags:
-**[https://github.com/orgs/asseco-tech/packages?repo_name=docker-boxes](https://github.com/orgs/asseco-tech/packages?repo_name=docker-boxes)**
+Browse all available images and tags: 
+**[ghcr.io registry](https://github.com/orgs/asseco-tech/packages?repo_name=docker-boxes)**
 
-
-## 🔄 CI/CD
-
-Images are automatically built and pushed using GitHub Actions on:
-- Push to `main` branch
-- Pull requests
 
 ## 🤝 Contributing
 
 Please contact the development team.
+
+### 🔄 CI/CD
+
+Images are built and pushed using GitHub Actions on:
+- Manual trigger on `master` branch 
+- Manual trigger on `hotfix/*` branch 
+
+Images are automatically built (without push) using GitHub Actions on:
+- Push to `master` branch
+- Push to `hotfix/*` branch 
+- Push to `dev` branch
+- Push to `feature/*` branch
+
 
 ## 🏢 Maintainer
 
