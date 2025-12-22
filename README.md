@@ -22,6 +22,7 @@ A comprehensive development container with essential Kubernetes and DevOps tools
 - **yq** - YAML processor and query tool
 - **jq** - JSON processor and query tool
 - **diffutils** - File comparison utilities
+- **gettext** - Text file processing utilities
 - **rsync** - File synchronization tool
 - **curl** - HTTP/S transfer data tool
 - **bash** - Shell environment
