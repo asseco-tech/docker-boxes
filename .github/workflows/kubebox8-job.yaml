@@ -1,8 +1,6 @@
 name: kubebox8 image build
 
 on:
-  pull_request:
-    branches: [ master, hotfix/* ]
   push:
     branches: [ master, hotfix/*, feature/*, dev ]
   workflow_dispatch:
