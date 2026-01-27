@@ -42,6 +42,8 @@ WORKDIR /tmp
 
 # linux update && install
 RUN dnf update -y \
+    ## git
+    && dnf install -y git-core \
     && dnf clean all \
     # python3.6 libs has vulnerabilities
     && rm -rf /usr/lib/python3.6 \
@@ -53,7 +55,8 @@ RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
           -o helm-linux-amd64.tar.gz \
     && tar -zxvf helm-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
-    && chmod +x /usr/local/bin/helm
+    && chmod +x /usr/local/bin/helm \
+    && helm plugin install https://github.com/databus23/helm-diff
 
 RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
           -o kustomize_linux_amd4.tar.gz \
