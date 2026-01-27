@@ -8,6 +8,10 @@ ARG BASH_VERSION="4.4.x"
 # https://github.com/kubernetes/helm/releases
 ENV HELM_VERSION="3.18.6"
 
+# Note: Latest version of helmfile may be found at
+# https://github.com/helmfile/helmfile/releases
+ENV HELMFILE_VERSION="1.2.3"
+
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION="5.5.0"
@@ -23,7 +27,7 @@ ENV KUBE_VERSION=${KUBE_VERSION}
 ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
 ARG DESC_P1="A container focused on Kubernetes deployment and Helm operations."
-ARG DESC_P2="The following tools are included: kubectl ${KUBE_VERSION}, oc ${OC_VERSION}, helm ${HELM_VERSION}, kustomize ${KUSTOMIZE_VERSION}, bash ${BASH_VERSION}, curl ${CURL_VERSION}"
+ARG DESC_P2="The following tools are included: kubectl ${KUBE_VERSION}, oc ${OC_VERSION}, helm ${HELM_VERSION}, helmfile ${HELMFILE_VERSION}, kustomize ${KUSTOMIZE_VERSION}, bash ${BASH_VERSION}, curl ${CURL_VERSION}"
 ARG DESC_P3="The image is based on Red Hat UBI 8."
 
 LABEL vendor="${VENDOR}" \
@@ -65,6 +69,12 @@ RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_V
 RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl \
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
+
+RUN curl -sL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
+          -o helmfile_linux_amd64.tar.gz \
+    && tar -zxvf helmfile_linux_amd64.tar.gz \
+    && mv helmfile /usr/local/bin/helmfile \
+    && chmod +x /usr/local/bin/helmfile
 
 WORKDIR /home
 

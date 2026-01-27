@@ -57,6 +57,7 @@ A container focused on Kubernetes deployment and Helm operations.
 **Base Image:** Red Hat UBI 8  
 **Included Tools:**
 - **Helm** - Kubernetes package manager (version determined at build time)
+- **helmfile** - Deploy Kubernetes manifests and Helm charts
 - **Kustomize** - Kubernetes configuration management
 - **oc** - the OpenShfit cluster manager CLI
 - **kubectl** - the Kubernetes cluster manager CLI
