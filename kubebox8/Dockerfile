@@ -51,6 +51,7 @@ RUN dnf update -y \
     # dnf uses deleted python libs
     && rm -f /usr/bin/dnf
 
+ENV HELM_PLUGINS=/usr/local/bin/plugins
 RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
           -o helm-linux-amd64.tar.gz \
     && tar -zxvf helm-linux-amd64.tar.gz \
