@@ -2,7 +2,7 @@ name: kubebox8 image build
 
 on:
   push:
-    branches: [ master, hotfix/*, feature/*, dev ]
+    branches: [ feature/*, dev ]
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:

@@ -59,8 +59,8 @@ A container focused on Kubernetes deployment and Helm operations.
 - **Helm** - Kubernetes package manager (version determined at build time)
 - **helmfile** - Deploy Kubernetes manifests and Helm charts
 - **Kustomize** - Kubernetes configuration management
-- **oc** - the OpenShfit cluster manager CLI
 - **kubectl** - the Kubernetes cluster manager CLI
+- **git** - git repositories tool
 - **curl** - HTTP/S transfer data tool
 - **bash** - Shell environment
 The versions are located within the image environment.
@@ -104,8 +104,6 @@ Images are built and pushed using GitHub Actions on:
 - Manual trigger on `hotfix/*` branch 
 
 Images are automatically built (without push) using GitHub Actions on:
-- Push to `master` branch
-- Push to `hotfix/*` branch 
 - Push to `dev` branch
 - Push to `feature/*` branch
 
