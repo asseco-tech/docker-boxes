@@ -3,6 +3,8 @@ name: kdevbox8 image build
 on:
   push:
     branches: [ feature/*, dev ]
+    paths:
+      - 'kdevbox8/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:

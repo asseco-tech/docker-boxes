@@ -3,6 +3,8 @@ name: ocpbox8 image build
 on:
   push:
     branches: [ feature/*, dev ]
+    paths:
+      - 'ocpbox8/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:

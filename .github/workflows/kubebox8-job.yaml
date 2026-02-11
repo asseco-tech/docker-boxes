@@ -3,6 +3,8 @@ name: kubebox8 image build
 on:
   push:
     branches: [ feature/*, dev ]
+    paths:
+      - 'kubebox8/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
