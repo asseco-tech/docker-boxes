@@ -65,6 +65,7 @@ RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubec
     && mv kubectl /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
+# helmfile needs: helm, helm-diff, kustomize
 RUN curl -sL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
           -o helmfile_linux_amd64.tar.gz \
     && tar -zxvf helmfile_linux_amd64.tar.gz \

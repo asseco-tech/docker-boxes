@@ -66,6 +66,7 @@ RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_V
     && mv oc /usr/local/bin/oc \
     && chmod +x /usr/local/bin/oc
 
+# helmfile needs: helm, helm-diff, kustomize
 RUN curl -sL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
           -o helmfile_linux_amd64.tar.gz \
     && tar -zxvf helmfile_linux_amd64.tar.gz \
