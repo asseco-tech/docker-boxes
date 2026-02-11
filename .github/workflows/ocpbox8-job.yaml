@@ -1,0 +1,72 @@
+name: ocpbox8 image build
+
+on:
+  push:
+    branches: [ feature/*, dev ]
+  workflow_dispatch:
+    inputs:
+      PUSH_ENABLED:
+        description: 'Enable Docker image push (possible on master or hotfix/ branches)'
+        required: false
+        default: 'true'
+        type: boolean
+
+env:
+  REGISTRY: ghcr.io
+  # force old Docker v2 Schema 2 manifest
+  DOCKER_BUILDKIT: 1
+  DOCKER_CLI_EXPERIMENTAL: enabled
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ocpbox8
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Show branch info
+      run: |
+        echo "Current branch: ${{ github.ref_name }}"
+        echo "Event: ${{ github.event_name }}"
+        echo "Base ref: ${{ github.base_ref }}"
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set build number
+      id: build-number
+      run: |
+        BUILD_NUMBER=$(printf "%03d" ${{ github.run_number }})
+        echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_ENV
+        echo "build-number=${BUILD_NUMBER}" >> $GITHUB_OUTPUT
+
+    - name: Build Docker image
+      run: |
+        make build BUILD_NUMBER=${{ env.BUILD_NUMBER }}
+
+    - name: Show Docker Inspect
+      run: |
+        docker version && echo 
+        make --version && echo 
+        make inspect
+
+    - name: Push Docker image
+      if:   (github.ref_name == 'master' || startsWith(github.ref_name, 'hotfix/')) 
+          && github.event_name == 'workflow_dispatch' 
+          && github.event.inputs.PUSH_ENABLED == 'true'
+      run: |
+        make push DOCKER_REGISTRY=${{ env.REGISTRY }} BUILD_NUMBER=${{ env.BUILD_NUMBER }}
