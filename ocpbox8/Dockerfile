@@ -12,6 +12,10 @@ ENV HELM_VERSION="3.18.6"
 # https://github.com/helmfile/helmfile/releases
 ENV HELMFILE_VERSION="1.2.3"
 
+# Note: Latest version of kustomize may be found at
+# https://github.com/kubernetes-sigs/kustomize/releases
+ENV KUSTOMIZE_VERSION="5.5.0"
+
 # Note: Latest version of oc may be found at
 # https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
 ENV OC_VERSION=${OC_VERSION}
@@ -19,7 +23,7 @@ ENV OC_VERSION=${OC_VERSION}
 ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
 ARG DESC_P1="This container focused on Kubernetes deployment and Helm operations."
-ARG DESC_P2="The following tools are included: oc ${OC_VERSION}, helm ${HELM_VERSION}, helmfile ${HELMFILE_VERSION}, bash ${BASH_VERSION}, curl ${CURL_VERSION}."
+ARG DESC_P2="The following tools are included: oc ${OC_VERSION}, helm ${HELM_VERSION}, helmfile ${HELMFILE_VERSION}, kustomize ${KUSTOMIZE_VERSION}, bash ${BASH_VERSION}, curl ${CURL_VERSION}."
 ARG DESC_P3="The image is based on Red Hat UBI 8."
 
 LABEL vendor="${VENDOR}" \
@@ -50,6 +54,12 @@ RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm \
     && helm plugin install https://github.com/databus23/helm-diff
+
+RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+          -o kustomize_linux_amd4.tar.gz \
+    && tar -zxvf kustomize_linux_amd4.tar.gz \
+    && mv kustomize /usr/local/bin/kustomize \
+    && chmod +x /usr/local/bin/kustomize
 
 RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-amd64-rhel8.tar.gz \
     && tar -zxvf openshift-client-linux-amd64-rhel8.tar.gz \
