@@ -38,13 +38,13 @@ WORKDIR /tmp
 
 # linux update && install
 RUN dnf update -y \
-    ## git
+    ## git \
     && dnf install -y git-core \
     && dnf clean all \
-    # python3.6 libs has vulnerabilities
+    # python3.6 libs has vulnerabilities \
     && rm -rf /usr/lib/python3.6 \
     && rm -rf /usr/share/python3-wheels \
-    # dnf uses deleted python libs
+    # dnf uses deleted python libs \
     && rm -f /usr/bin/dnf
 
 ENV HELM_PLUGINS=/usr/local/bin/plugins
@@ -63,8 +63,9 @@ RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kust
 
 RUN curl -sL -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-amd64-rhel8.tar.gz \
     && tar -zxvf openshift-client-linux-amd64-rhel8.tar.gz \
-    && mv oc /usr/local/bin/oc \
-    && chmod +x /usr/local/bin/oc
+    && mv oc /usr/local/bin/ \
+    && mv kubectl /usr/local/bin/ \
+    && chmod +x /usr/local/bin/oc /usr/local/bin/kubectl
 
 # helmfile needs: helm, helm-diff, kustomize
 RUN curl -sL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
