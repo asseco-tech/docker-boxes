@@ -1,8 +1,8 @@
 # image attributes
 IMAGE_NAME = asseco-tech/ocpbox8
 DOCKER_REGISTRY ?= ghcr.io
-OC_VERSION ?= 4.19.21
-RELEASE_VERSION ?= 1
+OC_VERSION ?= 4.19.46
+RELEASE_VERSION ?= 2
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
 IMAGE_LATEST_TAG= o${OC_VERSION}-v${RELEASE_VERSION}
