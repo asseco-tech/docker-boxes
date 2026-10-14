@@ -14,11 +14,15 @@ ENV KUSTOMIZE_VERSION="5.5.0"
 
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
-ENV YQ_VERSION="4.47.2"
+ENV YQ_VERSION="4.54.1"
+# SHA256 of yq_linux_amd64, see checksums-bsd file of the release
+ARG YQ_SHA256="8e34fc298390875de416e6a4afcb8cabeceb25d9aa8506c1a2f9353cf702ea5f"
 
-# Note: Latest version of yq may be found at
-# https://github.com/mikefarah/yq/releases
-ENV JQ_VERSION="1.8.1"
+# Note: Latest version of jq may be found at
+# https://github.com/jqlang/jq/releases
+ENV JQ_VERSION="1.8.2"
+# SHA256 of jq-linux-amd64, see sha256sum.txt file of the release
+ARG JQ_SHA256="b1c22172dd303f3be49e935aa56aa48a8b7a46e0bc838b4997d3bb451495870f"
 
 ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
@@ -61,11 +65,13 @@ RUN  curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kus
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
 
-RUN  curl -sL -O https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64 \
+RUN  curl -sfL -O https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64 \
+    && echo "${YQ_SHA256}  yq_linux_amd64" | sha256sum -c - \
     && mv yq_linux_amd64 /usr/local/bin/yq \
     && chmod a+xr,og-w /usr/local/bin/yq
 
-RUN  curl -sL -O https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 \
+RUN  curl -sfL -O https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 \
+    && echo "${JQ_SHA256}  jq-linux-amd64" | sha256sum -c - \
     && mv jq-linux-amd64 /usr/local/bin/jq \
     && chmod a+xr,og-w /usr/local/bin/jq \
     && rm -rf *
