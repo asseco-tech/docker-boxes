@@ -87,6 +87,44 @@ Where:
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
 
+### OCP Box (`asseco-tech/ocpbox9`)
+
+A container focused on OpenShift deployment and Helm operations.
+
+**Base Image:** Red Hat UBI 9  
+**Included Tools:**
+- **oc** - the OpenShift CLI (version determined at build time)
+- **kubectl** - the Kubernetes cluster manager CLI, shipped with oc
+- **Helm** - Kubernetes package manager
+- **helm-diff** - Helm plugin that previews upgrade changes as a diff
+- **helmfile** - Deploy Kubernetes manifests and Helm charts
+- **Kustomize** - Kubernetes configuration management
+- **git** - git repositories tool
+- **curl** - HTTP/S transfer data tool
+- **bash** - Shell environment
+The versions are located within the image environment.
+
+**Use Cases:**
+- OpenShift application deployment
+- Helm chart deployment and management on OpenShift
+- Simplified CI/CD for OpenShift and Helm-focused workflows
+
+🏷️ **Tagging Strategy:**
+
+Images are tagged using the following format: `o{OC_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+
+Where:
+- `OC_VERSION` - Version of oc included in the image
+- `RELEASE_VERSION` - Release of an image within the same oc version; 
+    a release change means a minor/patch version change for other tools or for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format);
+    a build change means correcting the metafiles, descriptions, scripts and so on
+
+**Example:** `o4.19.46-v1-b001`
+
+Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
+
+
 ### 📦 Image Registry
 
 Browse all available images and tags: 

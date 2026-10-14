@@ -69,7 +69,7 @@ info:
 	@echo "IMAGE_NAME: ${IMAGE_NAME}"
 	@echo "IMAGE_TAG: ${IMAGE_TAG}"
 	@echo "IMAGE_LATEST_TAG: ${IMAGE_LATEST_TAG}"
-	@echo "HELM_VERSION: ${HELM_VERSION}"
+	@echo "OC_VERSION: ${OC_VERSION}"
 	@echo "CACHE_FLAG: $(CACHE_FLAG)"
 	@echo
 	@echo "LOCAL REPO IMAGES: "

@@ -7,6 +7,7 @@ CACHE=${CACHE:-1}
 IMAGE_DIRS=(
   'kdevbox9'
   'kubebox9'
+  'ocpbox9'
 )
 
 for idir in "${IMAGE_DIRS[@]}"; do
