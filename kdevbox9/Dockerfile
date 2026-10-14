@@ -1,8 +1,10 @@
-FROM docker.io/redhat/ubi8:8.10
+FROM docker.io/redhat/ubi9:9.8
 ARG HELM_VERSION
+# SHA256 of helm-v${HELM_VERSION}-linux-amd64.tar.gz, see .sha256sum file at https://get.helm.sh
+ARG HELM_SHA256
 
 # METADATA
-ARG BASH_VERSION="4.4.x"
+ARG BASH_VERSION="5.1.x"
 
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
@@ -11,20 +13,26 @@ ENV HELM_VERSION=$HELM_VERSION
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION="5.5.0"
+# SHA256 of kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz, see checksums.txt file of the release
+ARG KUSTOMIZE_SHA256="6703a3a70a0c47cf0b37694030b54f1175a9dfeb17b3818b623ed58b9dbc2a77"
 
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
-ENV YQ_VERSION="4.47.2"
+ENV YQ_VERSION="4.54.1"
+# SHA256 of yq_linux_amd64, see checksums-bsd file of the release
+ARG YQ_SHA256="8e34fc298390875de416e6a4afcb8cabeceb25d9aa8506c1a2f9353cf702ea5f"
 
-# Note: Latest version of yq may be found at
-# https://github.com/mikefarah/yq/releases
-ENV JQ_VERSION="1.8.1"
+# Note: Latest version of jq may be found at
+# https://github.com/jqlang/jq/releases
+ENV JQ_VERSION="1.8.2"
+# SHA256 of jq-linux-amd64, see sha256sum.txt file of the release
+ARG JQ_SHA256="b1c22172dd303f3be49e935aa56aa48a8b7a46e0bc838b4997d3bb451495870f"
 
 ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
-ARG DESC_P1="A comprehensive development container with essential Kubernetes and DevOps tools."
+ARG DESC_P1="The comprehensive development container with essential Kubernetes and DevOps tools."
 ARG DESC_P2="The following tools are included: helm ${HELM_VERSION}, kustomize ${KUSTOMIZE_VERSION}, yq ${YQ_VERSION}, jq ${JQ_VERSION}, bash ${BASH_VERSION}, curl, envsubst, cmp, diff."
-ARG DESC_P3="The image is based on Red Hat UBI 8."
+ARG DESC_P3="The image is based on Red Hat UBI 9."
 
 LABEL vendor="${VENDOR}" \
       org.opencontainers.image.vendor="${VENDOR}" \
@@ -43,29 +51,33 @@ WORKDIR /tmp
 RUN dnf update -y \
     && dnf install -y diffutils gettext rsync \
     && dnf clean all \
-    # python3.6 libs has vulnerabilities
-    && rm -rf /usr/lib/python3.6 \
+    # python3.9 libs has vulnerabilities
+    && rm -rf /usr/lib/python3.9 \
     && rm -rf /usr/share/python3-wheels \
     # dnf uses deleted python libs
     && rm -f /usr/bin/dnf
 
-RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+RUN curl -sfL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
          -o helm-linux-amd64.tar.gz \
+    && echo "${HELM_SHA256}  helm-linux-amd64.tar.gz" | sha256sum -c - \
     && tar -zxvf helm-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
-RUN  curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+RUN  curl -sfL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
            -o kustomize_linux_amd4.tar.gz \
+    && echo "${KUSTOMIZE_SHA256}  kustomize_linux_amd4.tar.gz" | sha256sum -c - \
     && tar -zxvf kustomize_linux_amd4.tar.gz \
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
 
-RUN  curl -sL -O https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64 \
+RUN  curl -sfL -O https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64 \
+    && echo "${YQ_SHA256}  yq_linux_amd64" | sha256sum -c - \
     && mv yq_linux_amd64 /usr/local/bin/yq \
     && chmod a+xr,og-w /usr/local/bin/yq
 
-RUN  curl -sL -O https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 \
+RUN  curl -sfL -O https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 \
+    && echo "${JQ_SHA256}  jq-linux-amd64" | sha256sum -c - \
     && mv jq-linux-amd64 /usr/local/bin/jq \
     && chmod a+xr,og-w /usr/local/bin/jq \
     && rm -rf *

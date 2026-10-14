@@ -1,8 +1,9 @@
 # image attributes
-IMAGE_NAME = asseco-tech/kdevbox8
+IMAGE_NAME = asseco-tech/kdevbox9
 DOCKER_REGISTRY ?= ghcr.io
 HELM_VERSION ?= 3.18.6
-RELEASE_VERSION ?= 2
+HELM_SHA256 ?= 3f43c0aa57243852dd542493a0f54f1396c0bc8ec7296bbb2c01e802010819ce
+RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
 IMAGE_LATEST_TAG = h${HELM_VERSION}-v${RELEASE_VERSION}
@@ -31,12 +32,14 @@ help:
 	@echo " CACHE=1        enable cache (default: disabled)"
 	@echo " BUILD_NUMBER   build number (unique)"
 	@echo " HELM_VERSION   helm version"
+	@echo " HELM_SHA256    SHA256 of the helm archive (required when HELM_VERSION is changed)"
 
 
 build:
 	@echo "-- docker build ${IMAGE_NAME}:${IMAGE_TAG}"
 	docker build -t ${IMAGE_NAME}:${IMAGE_TAG} \
 	  --build-arg "HELM_VERSION=${HELM_VERSION}" \
+	  --build-arg "HELM_SHA256=${HELM_SHA256}" \
 	  --label "name=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.title=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.version=${IMAGE_TAG}" \

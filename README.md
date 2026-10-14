@@ -7,15 +7,15 @@ Docker images for Kubernetes application development and DevOps workflows.
 
 ## 📋 Overview
 
-This repository contains pre-built Docker images optimized for Kubernetes development, CI/CD pipelines, and DevOps tasks. Each image is built on Red Hat UBI8 (Universal Base Image) for enterprise-grade security and reliability.
+This repository contains pre-built Docker images optimized for Kubernetes development, CI/CD pipelines, and DevOps tasks. Each image is built on Red Hat UBI9 (Universal Base Image) for enterprise-grade security and reliability.
 
 ## 🏗️ Available Images
 
-### K8S DevBox (`asseco-tech/kdevbox8`)
+### K8S DevBox (`asseco-tech/kdevbox9`)
 
 A comprehensive development container with essential Kubernetes and DevOps tools.
 
-**Base Image:** Red Hat UBI 8  
+**Base Image:** Red Hat UBI 9  
 **Included Tools:**
 - **Helm** - Kubernetes package manager (version determined at build time)
 - **Kustomize** - Kubernetes configuration management
@@ -50,11 +50,11 @@ Where:
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
 
-### K8S KubeBox (`asseco-tech/kubebox8`)
+### K8S KubeBox (`asseco-tech/kubebox9`)
 
 A container focused on Kubernetes deployment and Helm operations.
 
-**Base Image:** Red Hat UBI 8  
+**Base Image:** Red Hat UBI 9  
 **Included Tools:**
 - **Helm** - Kubernetes package manager (version determined at build time)
 - **helmfile** - Deploy Kubernetes manifests and Helm charts
@@ -83,6 +83,44 @@ Where:
     a build change means correcting the metafiles, descriptions, scripts and so on
 
 **Example:** `k1.32.1-v1-b001`
+
+Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
+
+
+### OCP Box (`asseco-tech/ocpbox9`)
+
+A container focused on OpenShift deployment and Helm operations.
+
+**Base Image:** Red Hat UBI 9  
+**Included Tools:**
+- **oc** - the OpenShift CLI (version determined at build time)
+- **kubectl** - the Kubernetes cluster manager CLI, shipped with oc
+- **Helm** - Kubernetes package manager
+- **helm-diff** - Helm plugin that previews upgrade changes as a diff
+- **helmfile** - Deploy Kubernetes manifests and Helm charts
+- **Kustomize** - Kubernetes configuration management
+- **git** - git repositories tool
+- **curl** - HTTP/S transfer data tool
+- **bash** - Shell environment
+The versions are located within the image environment.
+
+**Use Cases:**
+- OpenShift application deployment
+- Helm chart deployment and management on OpenShift
+- Simplified CI/CD for OpenShift and Helm-focused workflows
+
+🏷️ **Tagging Strategy:**
+
+Images are tagged using the following format: `o{OC_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+
+Where:
+- `OC_VERSION` - Version of oc included in the image
+- `RELEASE_VERSION` - Release of an image within the same oc version; 
+    a release change means a minor/patch version change for other tools or for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format);
+    a build change means correcting the metafiles, descriptions, scripts and so on
+
+**Example:** `o4.19.46-v1-b001`
 
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
@@ -123,4 +161,4 @@ This project is licensed under the terms specified in the [LICENSE](LICENSE) fil
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
 - [Helm Documentation](https://helm.sh/docs/)
 - [Kustomize Documentation](https://kustomize.io/)
-- [Red Hat UBI8 Documentation](https://catalog.redhat.com/software/containers/ubi8/ubi/5c359854d70cc534b3a3784e)
+- [Red Hat UBI9 Documentation](https://catalog.redhat.com/software/containers/ubi9/ubi/615bcf606feffc5384e8452e)

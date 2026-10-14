@@ -1,8 +1,10 @@
-name: kdevbox8 image build
+name: kubebox9 image build
 
 on:
   push:
     branches: [ feature/*, dev ]
+    paths:
+      - 'kubebox9/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
@@ -22,7 +24,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: kdevbox8
+        working-directory: kubebox9
     permissions:
       contents: read
       packages: write

@@ -1,8 +1,8 @@
 # image attributes
-IMAGE_NAME = asseco-tech/kubebox8
+IMAGE_NAME = asseco-tech/kubebox9
 DOCKER_REGISTRY ?= ghcr.io
 KUBE_VERSION ?= 1.32.1
-RELEASE_VERSION ?= 2
+RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
 IMAGE_LATEST_TAG= k${KUBE_VERSION}-v${RELEASE_VERSION}

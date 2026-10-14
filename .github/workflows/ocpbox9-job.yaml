@@ -1,8 +1,10 @@
-name: kubebox8 image build
+name: ocpbox9 image build
 
 on:
   push:
     branches: [ feature/*, dev ]
+    paths:
+      - 'ocpbox9/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
@@ -22,7 +24,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: kubebox8
+        working-directory: ocpbox9
     permissions:
       contents: read
       packages: write
