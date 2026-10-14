@@ -7,14 +7,26 @@ ARG BASH_VERSION="5.1.x"
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
 ENV HELM_VERSION="3.18.6"
+# SHA256 of helm-v${HELM_VERSION}-linux-amd64.tar.gz, see .sha256sum file at https://get.helm.sh
+ARG HELM_SHA256="3f43c0aa57243852dd542493a0f54f1396c0bc8ec7296bbb2c01e802010819ce"
 
 # Note: Latest version of helmfile may be found at
 # https://github.com/helmfile/helmfile/releases
 ENV HELMFILE_VERSION="1.2.3"
+# SHA256 of helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz, see helmfile_${HELMFILE_VERSION}_checksums.txt file of the release
+ARG HELMFILE_SHA256="e238185ff094ecf41d81f2938711569803698355c7fc6081fa047bfa27b4c55c"
+
+# Note: Latest version of helm-diff plugin may be found at
+# https://github.com/databus23/helm-diff/releases
+ENV HELM_DIFF_VERSION="3.15.15"
+# SHA256 of helm-diff-linux-amd64.tgz, see helm-diff_${HELM_DIFF_VERSION}_checksums.txt file of the release
+ARG HELM_DIFF_SHA256="504e99410611daa70702362e1b10dc74929df8a912cb3f6b5d21d1ee9d0cb7d9"
 
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION="5.5.0"
+# SHA256 of kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz, see checksums.txt file of the release
+ARG KUSTOMIZE_SHA256="6703a3a70a0c47cf0b37694030b54f1175a9dfeb17b3818b623ed58b9dbc2a77"
 
 # Note: Latest version of kubectl may be found at
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
@@ -48,15 +60,25 @@ RUN dnf update -y \
     && rm -f /usr/bin/dnf
 
 ENV HELM_PLUGINS=/usr/local/bin/plugins
-RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+RUN curl -sfL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
           -o helm-linux-amd64.tar.gz \
+    && echo "${HELM_SHA256}  helm-linux-amd64.tar.gz" | sha256sum -c - \
     && tar -zxvf helm-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
-    && chmod +x /usr/local/bin/helm \
-    && helm plugin install https://github.com/databus23/helm-diff
+    && chmod +x /usr/local/bin/helm
 
-RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+# helm-diff is unpacked directly into HELM_PLUGINS,
+# so the plugin install hook does not download the binary again
+RUN curl -sfL https://github.com/databus23/helm-diff/releases/download/v${HELM_DIFF_VERSION}/helm-diff-linux-amd64.tgz \
+          -o helm-diff-linux-amd64.tgz \
+    && echo "${HELM_DIFF_SHA256}  helm-diff-linux-amd64.tgz" | sha256sum -c - \
+    && mkdir -p ${HELM_PLUGINS} \
+    && tar -zxvf helm-diff-linux-amd64.tgz -C ${HELM_PLUGINS} \
+    && helm plugin list | grep -q "^diff[[:space:]]*${HELM_DIFF_VERSION}"
+
+RUN curl -sfL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
           -o kustomize_linux_amd4.tar.gz \
+    && echo "${KUSTOMIZE_SHA256}  kustomize_linux_amd4.tar.gz" | sha256sum -c - \
     && tar -zxvf kustomize_linux_amd4.tar.gz \
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
@@ -66,8 +88,9 @@ RUN curl -sL -O https://dl.k8s.io/release/v${KUBE_VERSION}/bin/linux/amd64/kubec
     && chmod +x /usr/local/bin/kubectl
 
 # helmfile needs: helm, helm-diff, kustomize
-RUN curl -sL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
+RUN curl -sfL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
           -o helmfile_linux_amd64.tar.gz \
+    && echo "${HELMFILE_SHA256}  helmfile_linux_amd64.tar.gz" | sha256sum -c - \
     && tar -zxvf helmfile_linux_amd64.tar.gz \
     && mv helmfile /usr/local/bin/helmfile \
     && chmod +x /usr/local/bin/helmfile

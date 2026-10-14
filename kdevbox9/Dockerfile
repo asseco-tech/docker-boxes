@@ -1,5 +1,7 @@
 FROM docker.io/redhat/ubi9:9.8
 ARG HELM_VERSION
+# SHA256 of helm-v${HELM_VERSION}-linux-amd64.tar.gz, see .sha256sum file at https://get.helm.sh
+ARG HELM_SHA256
 
 # METADATA
 ARG BASH_VERSION="5.1.x"
@@ -11,6 +13,8 @@ ENV HELM_VERSION=$HELM_VERSION
 # Note: Latest version of kustomize may be found at
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION="5.5.0"
+# SHA256 of kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz, see checksums.txt file of the release
+ARG KUSTOMIZE_SHA256="6703a3a70a0c47cf0b37694030b54f1175a9dfeb17b3818b623ed58b9dbc2a77"
 
 # Note: Latest version of yq may be found at
 # https://github.com/mikefarah/yq/releases
@@ -53,14 +57,16 @@ RUN dnf update -y \
     # dnf uses deleted python libs
     && rm -f /usr/bin/dnf
 
-RUN curl -sL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+RUN curl -sfL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
          -o helm-linux-amd64.tar.gz \
+    && echo "${HELM_SHA256}  helm-linux-amd64.tar.gz" | sha256sum -c - \
     && tar -zxvf helm-linux-amd64.tar.gz \
     && mv linux-amd64/helm /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
-RUN  curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
+RUN  curl -sfL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
            -o kustomize_linux_amd4.tar.gz \
+    && echo "${KUSTOMIZE_SHA256}  kustomize_linux_amd4.tar.gz" | sha256sum -c - \
     && tar -zxvf kustomize_linux_amd4.tar.gz \
     && mv kustomize /usr/local/bin/kustomize \
     && chmod +x /usr/local/bin/kustomize
