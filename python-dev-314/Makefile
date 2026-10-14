@@ -1,12 +1,13 @@
 # image attributes
 IMAGE_NAME = asseco-tech/python-dev-314
 DOCKER_REGISTRY ?= ghcr.io
-PYTHON_VERSION ?= 3.14.8
+PYTHON_VERSION ?= 3.14
+PYTHON_PATCH ?= 8
 RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
-IMAGE_LATEST_TAG= p${PYTHON_VERSION}-v${RELEASE_VERSION}
-IMAGE_TAG = p${PYTHON_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
+IMAGE_LATEST_TAG= p${PYTHON_PATCH}-v${RELEASE_VERSION}
+IMAGE_TAG = p${PYTHON_PATCH}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
 
 # docker build opts
 CACHE ?= ''
@@ -30,13 +31,15 @@ help:
 	@echo "Available parameters:"
 	@echo " CACHE=1        enable cache (default: disabled)"
 	@echo " BUILD_NUMBER   build number (unique)"
-	@echo " PYTHON_VERSION python3.14 RPM version"
+	@echo " PYTHON_VERSION python minor version, e.g. 3.14"
+	@echo " PYTHON_PATCH   python patch version, e.g. 8"
 
 
 build:
 	@echo "-- docker build ${IMAGE_NAME}:${IMAGE_TAG}"
 	docker build -t ${IMAGE_NAME}:${IMAGE_TAG} \
 	  --build-arg "PYTHON_VERSION=${PYTHON_VERSION}" \
+	  --build-arg "PYTHON_PATCH=${PYTHON_PATCH}" \
 	  --label "name=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.title=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.version=${IMAGE_TAG}" \
@@ -70,6 +73,7 @@ info:
 	@echo "IMAGE_TAG: ${IMAGE_TAG}"
 	@echo "IMAGE_LATEST_TAG: ${IMAGE_LATEST_TAG}"
 	@echo "PYTHON_VERSION: ${PYTHON_VERSION}"
+	@echo "PYTHON_PATCH: ${PYTHON_PATCH}"
 	@echo "CACHE_FLAG: $(CACHE_FLAG)"
 	@echo
 	@echo "LOCAL REPO IMAGES: "
