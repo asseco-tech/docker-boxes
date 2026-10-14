@@ -125,6 +125,52 @@ Where:
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
 
+### Python 3.14 Dev (`asseco-tech/python-dev-314`)
+
+A build container for Python applications and PyInstaller binaries that run on Red Hat UBI 9 (glibc 2.34).
+
+**Why "dev":** the image is a development and build environment, not a runtime image.
+Besides the Python interpreter, it contains the C toolchain and the `python3.14-devel` package:
+- `Python.h` and the other CPython headers, `python3.14-config` and the `libpython3.14` link library;
+- they are needed to compile C extensions, e.g. when a package from PyPI has no prebuilt wheel
+  for Python 3.14 and pip/uv builds it from the source distribution (sdist);
+- PyInstaller uses `objdump` from binutils to collect the shared libraries of the application.
+
+Run the results outside this image: a PyInstaller binary built here runs on a plain
+`docker.io/redhat/ubi9` image without Python, compilers or headers.
+
+**Base Image:** Red Hat UBI 9  
+**Included Tools:**
+- **Python 3.14** - from the UBI 9 AppStream repository (version determined at build time); `python` and `python3` point to it
+- **pip** - Python package installer
+- **uv** - Python package and project manager; `UV_PYTHON_PREFERENCE=only-system` makes it use the image Python
+- **gcc**, **python3.14-devel** - build of C extensions
+- **binutils** - `objdump`, required by PyInstaller
+- **tar**, **gzip**, **curl** - archive and HTTP/S transfer tools
+- **bash** - Shell environment
+The versions are located within the image environment.
+
+**Use Cases:**
+- Python application build with uv
+- PyInstaller binaries for UBI 9 based images
+- CI/CD for Python projects
+
+🏷️ **Tagging Strategy:**
+
+Images are tagged using the following format: `p{PYTHON_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+
+Where:
+- `PYTHON_VERSION` - Version of Python included in the image
+- `RELEASE_VERSION` - Release of an image within the same Python version; 
+    a release change means a minor/patch version change for other tools or for the base image.
+- `BUILD_NUMBER` - Sequential build number (3-digit format);
+    a build change means correcting the metafiles, descriptions, scripts and so on
+
+**Example:** `p3.14.8-v1-b001`
+
+Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
+
+
 ### 📦 Image Registry
 
 Browse all available images and tags: 
