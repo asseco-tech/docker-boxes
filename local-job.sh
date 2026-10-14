@@ -8,6 +8,7 @@ IMAGE_DIRS=(
   'kdevbox9'
   'kubebox9'
   'ocpbox9'
+  'python-dev-314'
 )
 
 for idir in "${IMAGE_DIRS[@]}"; do
