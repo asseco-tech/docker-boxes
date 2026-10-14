@@ -1,12 +1,12 @@
 # image attributes
-IMAGE_NAME = asseco-tech/kdevbox8
+IMAGE_NAME = asseco-tech/ocpbox9
 DOCKER_REGISTRY ?= ghcr.io
-HELM_VERSION ?= 3.18.6
-RELEASE_VERSION ?= 2
+OC_VERSION ?= 4.19.46
+RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
-IMAGE_LATEST_TAG = h${HELM_VERSION}-v${RELEASE_VERSION}
-IMAGE_TAG = h${HELM_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
+IMAGE_LATEST_TAG= o${OC_VERSION}-v${RELEASE_VERSION}
+IMAGE_TAG = o${OC_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
 
 # docker build opts
 CACHE ?= ''
@@ -30,13 +30,13 @@ help:
 	@echo "Available parameters:"
 	@echo " CACHE=1        enable cache (default: disabled)"
 	@echo " BUILD_NUMBER   build number (unique)"
-	@echo " HELM_VERSION   helm version"
+	@echo " OC_VERSION     oc version"
 
 
 build:
 	@echo "-- docker build ${IMAGE_NAME}:${IMAGE_TAG}"
 	docker build -t ${IMAGE_NAME}:${IMAGE_TAG} \
-	  --build-arg "HELM_VERSION=${HELM_VERSION}" \
+	  --build-arg "OC_VERSION=${OC_VERSION}" \
 	  --label "name=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.title=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.version=${IMAGE_TAG}" \

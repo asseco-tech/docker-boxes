@@ -1,8 +1,8 @@
-FROM docker.io/redhat/ubi8:8.10
+FROM docker.io/redhat/ubi9:9.8
 ARG KUBE_VERSION
 
 # METADATA
-ARG BASH_VERSION="4.4.x"
+ARG BASH_VERSION="5.1.x"
 
 # Note: Latest version of helm may be found at
 # https://github.com/kubernetes/helm/releases
@@ -24,7 +24,7 @@ ARG VENDOR="Asseco Poland S.A."
 ARG SOURCE_URL="https://github.com/asseco-tech/docker-boxes"
 ARG DESC_P1="This container focused on Kubernetes deployment and Helm operations."
 ARG DESC_P2="The following tools are included: kubectl ${KUBE_VERSION}, helm ${HELM_VERSION}, helmfile ${HELMFILE_VERSION}, kustomize ${KUSTOMIZE_VERSION}, bash ${BASH_VERSION}, curl ${CURL_VERSION}, git."
-ARG DESC_P3="The image is based on Red Hat UBI 8."
+ARG DESC_P3="The image is based on Red Hat UBI 9."
 
 LABEL vendor="${VENDOR}" \
       org.opencontainers.image.vendor="${VENDOR}" \
@@ -41,8 +41,8 @@ RUN dnf update -y \
     ## git
     && dnf install -y git-core \
     && dnf clean all \
-    # python3.6 libs has vulnerabilities
-    && rm -rf /usr/lib/python3.6 \
+    # python3.9 libs has vulnerabilities
+    && rm -rf /usr/lib/python3.9 \
     && rm -rf /usr/share/python3-wheels \
     # dnf uses deleted python libs
     && rm -f /usr/bin/dnf

@@ -5,8 +5,8 @@ BUILD_NUMBER=${BUILD_NUMBER:-001}
 CACHE=${CACHE:-1}
 
 IMAGE_DIRS=(
-  'kdevbox8'
-  'kubebox8'
+  'kdevbox9'
+  'kubebox9'
 )
 
 for idir in "${IMAGE_DIRS[@]}"; do

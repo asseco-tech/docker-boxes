@@ -1,10 +1,10 @@
-name: ocpbox8 image build
+name: kdevbox9 image build
 
 on:
   push:
     branches: [ feature/*, dev ]
     paths:
-      - 'ocpbox8/**'
+      - 'kdevbox9/**'
   workflow_dispatch:
     inputs:
       PUSH_ENABLED:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: ocpbox8
+        working-directory: kdevbox9
     permissions:
       contents: read
       packages: write

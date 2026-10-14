@@ -1,12 +1,12 @@
 # image attributes
-IMAGE_NAME = asseco-tech/ocpbox8
+IMAGE_NAME = asseco-tech/kubebox9
 DOCKER_REGISTRY ?= ghcr.io
-OC_VERSION ?= 4.19.46
+KUBE_VERSION ?= 1.32.1
 RELEASE_VERSION ?= 1
 BUILD_NUMBER ?= 001
 BUILD_DATE = $(shell date --iso-8601=seconds)
-IMAGE_LATEST_TAG= o${OC_VERSION}-v${RELEASE_VERSION}
-IMAGE_TAG = o${OC_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
+IMAGE_LATEST_TAG= k${KUBE_VERSION}-v${RELEASE_VERSION}
+IMAGE_TAG = k${KUBE_VERSION}-v${RELEASE_VERSION}-b${BUILD_NUMBER}
 
 # docker build opts
 CACHE ?= ''
@@ -30,13 +30,13 @@ help:
 	@echo "Available parameters:"
 	@echo " CACHE=1        enable cache (default: disabled)"
 	@echo " BUILD_NUMBER   build number (unique)"
-	@echo " OC_VERSION     oc version"
+	@echo " KUBE_VERSION   kubectl version"
 
 
 build:
 	@echo "-- docker build ${IMAGE_NAME}:${IMAGE_TAG}"
 	docker build -t ${IMAGE_NAME}:${IMAGE_TAG} \
-	  --build-arg "OC_VERSION=${OC_VERSION}" \
+	  --build-arg "KUBE_VERSION=${KUBE_VERSION}" \
 	  --label "name=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.title=${IMAGE_NAME}" \
 	  --label "org.opencontainers.image.version=${IMAGE_TAG}" \
