@@ -12,9 +12,9 @@ ARG HELM_SHA256="3f43c0aa57243852dd542493a0f54f1396c0bc8ec7296bbb2c01e802010819c
 
 # Note: Latest version of helmfile may be found at
 # https://github.com/helmfile/helmfile/releases
-ENV HELMFILE_VERSION="1.2.3"
+ENV HELMFILE_VERSION="1.8.1"
 # SHA256 of helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz, see helmfile_${HELMFILE_VERSION}_checksums.txt file of the release
-ARG HELMFILE_SHA256="e238185ff094ecf41d81f2938711569803698355c7fc6081fa047bfa27b4c55c"
+ARG HELMFILE_SHA256="ccabbe75dddbc25008d055fe92a44f95a184342211e7244d32b870409239c7a3"
 
 # Note: Latest version of helm-diff plugin may be found at
 # https://github.com/databus23/helm-diff/releases
