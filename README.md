@@ -157,16 +157,17 @@ The versions are located within the image environment.
 
 🏷️ **Tagging Strategy:**
 
-Images are tagged using the following format: `p{PYTHON_VERSION}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
+Images are tagged using the following format: `p{PYTHON_PATCH}-v{RELEASE_VERSION}-b{BUILD_NUMBER}`
 
 Where:
-- `PYTHON_VERSION` - Version of Python included in the image
-- `RELEASE_VERSION` - Release of an image within the same Python version; 
+- `PYTHON_PATCH` - Patch version of Python included in the image;
+    the minor version (`PYTHON_VERSION`, e.g. 3.14) is part of the image name
+- `RELEASE_VERSION` - Release of an image within the same Python patch version; 
     a release change means a minor/patch version change for other tools or for the base image.
 - `BUILD_NUMBER` - Sequential build number (3-digit format);
     a build change means correcting the metafiles, descriptions, scripts and so on
 
-**Example:** `p3.14.8-v1-b001`
+**Example:** `p8-v1-b001` (Python 3.14.8), the latest build of the release: `p8-v1`
 
 Tool versions are determined at build time and may vary between tags. Check the specific tag for exact versions.
 
